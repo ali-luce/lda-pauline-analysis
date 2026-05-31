@@ -2,7 +2,7 @@
 
 This repository contains the Python code used in:
 
-> Alessandra Luce and Paul Robertson, "Latent Dirichlet Allocation (LDA) and Thematic Analysis of Biblical and Contemporary Literature".
+> Alessandra Luce and Paul Robertson, "Latent Dirichlet Allocation (LDA) and Thematic Analysis of Biblical and Contemporary Literature". (forthcoming)
 
 The study applies Latent Dirichlet Allocation to hand-tagged rhetorical features in Paul's letters and a set of roughly contemporary comparanda texts (Epictetus, Seneca, Philodemus, Aelius Aristides, the Letter to the Hebrews, 4 Maccabees, and the Damascus Document), then compares topic distributions using Jensen-Shannon divergence.
 
