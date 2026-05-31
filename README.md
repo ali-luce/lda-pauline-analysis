@@ -25,8 +25,8 @@ Scripts should be run in the order listed above.
 
 The scripts expect hand-tagged feature data in CSV format. Each feature CSV (one per text) should have the following columns:
 
-- `Characteristics` — the name of the rhetorical feature (e.g., `rhetorical questions`, `metaphors`)
-- `Appearances` — a comma-separated list of segment references where that feature occurs (e.g., `1:3, 2:7, 4:12` for biblical texts)
+- `Characteristics` - the name of the rhetorical feature (e.g., `rhetorical questions`, `metaphors`)
+- `Appearances` - a comma-separated list of segment references where that feature occurs (e.g., `1:3, 2:7, 4:12` for biblical texts)
 
 The `clean_data/` directory containing all feature CSVs used in the study is included in this repository. The twenty rhetorical features used in this study are:
 
