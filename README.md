@@ -117,7 +117,7 @@ python LDA.py
 
 **Biblical texts** (Paul's letters, Hebrews, 4 Maccabees) are segmented by verse, with deciles assigned proportionally across the total verse count of each letter or book.
 
-**Non-biblical texts** (Epictetus, Seneca, Philodemus, Aelius Aristides, Damascus Document) are segmented using the structural divisions of the text (book/chapter/section or column/line, depending on the work). The full section lists used for decile assignment are defined in `deciles.py`. See §4 of the paper for the rationale behind this segmentation approach.
+**Non-biblical texts** (Epictetus, Seneca, Philodemus, Aelius Aristides, Damascus Document) are segmented using the structural divisions of the text (book/chapter/section or column/line, depending on the work). The full section lists used for decile assignment are defined in `deciles.py`. See §5 of the paper for the rationale behind this segmentation approach.
 
 ---
 
