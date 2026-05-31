@@ -124,11 +124,3 @@ python LDA.py
 ## Reproducibility Note
 
 LDA is a probabilistic algorithm. Results may vary slightly across runs due to random initialization. To reproduce the exact results reported in the paper, use `random_state=42` in the `LdaModel` call (this is set by default in `LDA.py`) and gensim version 4.3.3.
-
----
-
-## Citation
-
-If you use this code, please cite the paper:
-
-> (forthcoming).
