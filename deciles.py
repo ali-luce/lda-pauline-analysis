@@ -148,12 +148,6 @@ def explode_and_merge_biblical(feature_file, deciles_df, letter):
                         "Characteristic": char,
                         "Segment": f"{c}:{v}"
                     })
-                exploded.append({
-                    "Letter": letter,
-                    "Characteristic": char,
-                    "Segment": f"{c}:{v}"
-
-                })
 
     flat = pd.DataFrame(exploded)
     merged = pd.merge(flat, deciles_df[["Letter", "Segment", "Decile"]],

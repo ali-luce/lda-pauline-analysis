@@ -14,6 +14,14 @@ def dense_vector(dist, num_topics):
     return vec
 
 
+# get topic distribution for one document
+# gensim draws new random numbers on every call, so reset the random state to make each result
+# independent of how many documents were inferred before it (and of the order of the files)
+def document_topics(model, bow, seed=42):
+    model.random_state = np.random.RandomState(seed)
+    return model.get_document_topics(bow, minimum_probability=0.0)
+
+
 if __name__ == '__main__':
     # set data folder
     input_dir = "deciles"
@@ -35,7 +43,7 @@ if __name__ == '__main__':
 
     for filename in paul_files:
         path = os.path.join(input_dir, filename)
-        df = pd.read_csv(path)
+        df = pd.read_csv(path, dtype={"Segment": str})
 
         grouped = defaultdict(list)
         for _, row in df.iterrows():
@@ -71,7 +79,9 @@ if __name__ == '__main__':
         models[k] = model
 
         # calculate coherence
-        coherence = CoherenceModel(model=model, texts=documents, dictionary=dictionary, coherence='c_v').get_coherence()
+        # topn must be smaller than the vocabulary (20 features): with gensim's default of 20, every topic's
+        # top words are the whole vocabulary and every model gets the same score
+        coherence = CoherenceModel(model=model, texts=documents, dictionary=dictionary, coherence='c_v', topn=10).get_coherence()
         coherences.append((k, coherence))
 
         print(f"Model with {k} topics - Coherence: {coherence:.4f}")
@@ -96,7 +106,7 @@ if __name__ == '__main__':
             print(f"Topic {i}: {topic}")
 
         # calculate topic distributions and baseline
-        topic_dists = [lda_model.get_document_topics(doc, minimum_probability=0.0) for doc in corpus]
+        topic_dists = [document_topics(lda_model, doc) for doc in corpus]
         dense_dists = [dense_vector(dist, lda_model.num_topics) for dist in topic_dists]
         paul_baseline = np.mean(dense_dists, axis=0)
 
@@ -120,7 +130,8 @@ if __name__ == '__main__':
 
         for filename in comparanda_files:
             path = os.path.join("deciles", filename)
-            df = pd.read_csv(path)
+            # read segments as text, otherwise e.g. "1.10" is parsed as the number 1.1 and treated as a duplicate of "1.1"
+            df = pd.read_csv(path, dtype={"Segment": str})
 
             # make sure data is clean
             df = df.drop_duplicates(subset=["Segment", "Characteristic"])
@@ -145,7 +156,7 @@ if __name__ == '__main__':
                 comp_labels.append(f"{label} - Decile {decile}")
 
             # get topic distributions from paul-trained model
-            comp_dists = [lda_model.get_document_topics(doc, minimum_probability=0.0) for doc in comp_docs]
+            comp_dists = [document_topics(lda_model, doc) for doc in comp_docs]
             dense_comp_dists = [dense_vector(dist, lda_model.num_topics) for dist in comp_dists]
 
             # get average topic distribution for this text
